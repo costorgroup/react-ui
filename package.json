@@ -1,15 +1,23 @@
 {
   "name": "@costorgroup/react-ui",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest",
     "build": "rollup -c --bundleConfigAsCjs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prebuild": "rimraf dist/",
+    "test": "jest --config jest.config.js",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.js\" \"src/**/*.jsx\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "author": "CostorGroup Development",
   "license": "ISC",
@@ -34,6 +42,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^5.0.1",
     "rollup": "^3.23.0",
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-minification": "^0.2.0",
@@ -41,6 +50,8 @@
     "storybook": "^7.0.18",
     "ts-jest": "^29.1.0",
     "tslib": "^2.5.2",
+    "tslint": "^6.1.3",
     "typescript": "^5.0.4"
   }
 }
+
